@@ -6,7 +6,7 @@ export const NavBar = () => {
 
     const router = useRouter()
     return (
-        <header className="flex justify-between items-center p-6 bg-[#e0e0e0] shadow-md">
+        <header className="flex justify-between items-center p-6 bg-[#e0e0e0] fixed w-full top-0 left-0">
             <Link href="/">
                 <Image src="./logo.svg" alt="Software Agency" width={200} height={100} />
             </Link>
