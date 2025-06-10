@@ -2,13 +2,27 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-// import { FiMenu, FiX } from "react-icons/fi";
+import { useEffect, useState } from 'react'
 import { GiHamburgerMenu } from 'react-icons/gi'
 
 export const NavBar = () => {
+
     const [isOpen, setIsOpen] = useState(false)
     const router = useRouter()
+
+    useEffect(() => {
+        const checkUpdateSize = () => {
+            if (window.innerWidth > 640) {
+                setIsOpen(false)
+            } 
+        }
+
+        window.addEventListener("resize", checkUpdateSize)
+        checkUpdateSize() // Initial check
+
+        return () => window.removeEventListener("resize", checkUpdateSize) // Cleanup
+    }, [])
+
     return (
         <header className="flex justify-between items-center p-6 bg-[#e0e0e0] fixed w-full top-0 left-0">
             <Link href="/">
@@ -45,7 +59,8 @@ export const NavBar = () => {
 
             {/* Mobile Menu Dropdown */}
             {isOpen && (
-                <div className="absolute top-16 left-0 right-0 bg-[#e0e0e0] p-6 shadow-md w-full flex flex-col items-center space-y-4">                    <Link href="/about" className="text-[#063833] hover:text-[#b3c5c1]">About</Link>
+                <div className="absolute text-lg top-16 left-0 right-0 bg-[#e0e0e0] p-6 shadow-md w-full flex flex-col items-center space-y-4">
+                    <Link href="/about" className="text-[#063833] hover:text-[#b3c5c1]">About</Link>
                     <Link href="/services" className="text-[#063833] hover:text-[#b3c5c1]">Services</Link>
                     <Link href="/contact" className="text-[#063833] hover:text-[#b3c5c1]">Contact</Link>
                     <button
